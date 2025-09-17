@@ -1,15 +1,49 @@
-/**
- * WHAT IS THIS FILE?
- *
- * Globally applied styles for the ultralight Qwik template.
- * Uses a minimalistic light theme with specified color scheme.
- */
+/*
+  Global styles and theme variables for Ocean Professional theme.
+  Clean, modern UI with subtle shadows, rounded corners, and smooth transitions.
+*/
 
 :root {
-  --primary-color: #000000;
-  --secondary-color: #333333;
-  --accent-color: #0078d4;
-  --background-color: #ffffff;
+  /* Theme palette from style guide */
+  --color-primary: #2563EB;   /* blue-600 */
+  --color-secondary: #F59E0B; /* amber-500 */
+  --color-success: #F59E0B;   /* success same as secondary per guide */
+  --color-error: #EF4444;     /* red-500 */
+  --color-text: #111827;      /* gray-900 */
+  --color-bg: #f9fafb;        /* gray-50 */
+  --color-surface: #ffffff;   /* white */
+
+  /* Accents and variants */
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-700: #1d4ed8;
+  --color-secondary-600: #d97706;
+
+  /* Shadows and radius */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.08);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* Layout sizes */
+  --sidebar-width: 260px;
+  --topbar-height: 60px;
+  --content-max-width: 1200px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition: 220ms ease;
+
+  /* Gradients */
+  --ocean-gradient: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(249,250,251,1));
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html {
@@ -26,16 +60,233 @@ html {
     Arial,
     "Noto Sans",
     sans-serif;
+  color: var(--color-text);
+  background: var(--color-bg);
 }
 
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--background-color);
-  color: var(--primary-color);
-  line-height: inherit;
+  background: var(--ocean-gradient);
+  min-height: 100vh;
 }
 
-* {
-  box-sizing: border-box;
+/* Utility classes */
+.container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1rem;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast),
+    background var(--transition-fast), opacity var(--transition-fast);
+}
+.btn:hover {
+  background: var(--color-primary-700);
+  box-shadow: var(--shadow-md);
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn.secondary {
+  background: var(--color-secondary);
+}
+.btn.ghost {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary-100);
+}
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.icon-btn:hover {
+  background: var(--color-primary-50);
+  box-shadow: var(--shadow-md);
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: var(--color-text);
+  outline: none;
+  box-shadow: var(--shadow-sm) inset;
+  transition: border var(--transition), box-shadow var(--transition), background var(--transition);
+}
+.input:focus,
+.textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+}
+.textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+
+/* Layout regions */
+.app-shell {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+  grid-template-rows: var(--topbar-height) 1fr;
+  min-height: 100vh;
+}
+.app-topbar {
+  grid-column: 1 / -1;
+  height: var(--topbar-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  backdrop-filter: blur(6px);
+  background: rgba(255,255,255,0.6);
+  border-bottom: 1px solid rgba(229,231,235,0.6);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.app-sidebar {
+  background: #fff;
+  border-right: 1px solid #e5e7eb;
+  box-shadow: var(--shadow-sm);
+  padding: 1rem;
+}
+.app-content {
+  padding: 1rem;
+}
+
+/* Sidebar */
+.nav-section-title {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin: 1rem 0 0.5rem;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.7rem;
+  border-radius: var(--radius-sm);
+  color: #374151;
+  text-decoration: none;
+  transition: background var(--transition), color var(--transition), transform var(--transition-fast);
+}
+.nav-item:hover {
+  background: var(--color-primary-50);
+  color: var(--color-primary);
+}
+.nav-item.active {
+  background: var(--color-primary-50);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* Notes list and editor */
+.notes-split {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: 1rem;
+  height: calc(100vh - var(--topbar-height) - 2rem);
+}
+.panel {
+  background: var(--color-surface);
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  padding: 0.75rem 0.9rem;
+  border-bottom: 1px solid #e5e7eb;
+  background: linear-gradient(180deg, rgba(37,99,235,0.05), rgba(255,255,255,0.9));
+}
+.panel-body {
+  padding: 0.75rem;
+  height: calc(100% - 56px);
+  overflow: auto;
+}
+
+/* Note list item */
+.note-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.25rem 0.5rem;
+  padding: 0.6rem 0.6rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.note-item:hover {
+  background: var(--color-primary-50);
+}
+.note-item.active {
+  background: var(--color-primary-100);
+  box-shadow: var(--shadow-sm);
+}
+.note-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111827;
+}
+.note-meta {
+  grid-column: 1 / -1;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+/* Editor */
+.editor-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+}
+.editor-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.editor-body {
+  display: grid;
+  gap: 0.75rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .notes-split {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
 }
